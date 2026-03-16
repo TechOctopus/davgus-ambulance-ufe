@@ -6,56 +6,32 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+    interface DavgusAmbulanceWlApp {
     }
 }
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLDavgusAmbulanceWlAppElement extends Components.DavgusAmbulanceWlApp, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLDavgusAmbulanceWlAppElement: {
+        prototype: HTMLDavgusAmbulanceWlAppElement;
+        new (): HTMLDavgusAmbulanceWlAppElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "davgus-ambulance-wl-app": HTMLDavgusAmbulanceWlAppElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+    interface DavgusAmbulanceWlApp {
     }
     interface IntrinsicElements {
-        "my-component": MyComponent;
+        "davgus-ambulance-wl-app": DavgusAmbulanceWlApp;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "davgus-ambulance-wl-app": LocalJSX.IntrinsicElements["davgus-ambulance-wl-app"] & JSXBase.HTMLAttributes<HTMLDavgusAmbulanceWlAppElement>;
         }
     }
 }
