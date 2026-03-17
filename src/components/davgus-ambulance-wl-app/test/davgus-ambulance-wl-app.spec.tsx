@@ -17,7 +17,7 @@ describe('davgus-ambulance-wl-app', () => {
             Made by Heorhi Davydau and Vladislav Gusiev
           </p>
           <md-filled-button>
-            Click me
+            Click
           </md-filled-button>
         </mock:shadow-root>
       </davgus-ambulance-wl-app>
