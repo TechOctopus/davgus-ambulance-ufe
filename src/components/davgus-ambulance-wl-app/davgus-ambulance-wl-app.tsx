@@ -10,7 +10,7 @@ export class DavgusAmbulanceWlApp {
     return (
       <Host>
         <h1>WAC project</h1>
-        <p>Made by Heorhi Davydau and Vladislav Gusiev</p>
+        <p>Made by Heorhi Davydau and Vladislav Gusiev with passion</p>
         <md-filled-button>Click</md-filled-button>
       </Host>
     );

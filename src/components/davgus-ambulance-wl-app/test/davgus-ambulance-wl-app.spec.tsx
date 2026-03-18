@@ -14,7 +14,7 @@ describe('davgus-ambulance-wl-app', () => {
             WAC project
           </h1>
           <p>
-            Made by Heorhi Davydau and Vladislav Gusiev
+            Made by Heorhi Davydau and Vladislav Gusiev with passion
           </p>
           <md-filled-button>
             Click
