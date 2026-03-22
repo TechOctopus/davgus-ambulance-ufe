@@ -1,19 +1,86 @@
 <!doctype html>
-<html dir="ltr" lang="en">
+<html dir="ltr" lang="sk">
   <head>
     <base href="/" />
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
-    <title>Stencil Component Starter</title>
+    <title>Nemocničný systém</title>
 
     <script type="module" src="/build/davgus-ambulance-ufe.esm.js"></script>
     <script nomodule src="/build/davgus-ambulance-ufe.js"></script>
+
+    <style>
+      :root {
+        --md-sys-color-primary: #1565C0;
+        --md-sys-color-on-primary: #FFFFFF;
+        --md-sys-color-primary-container: #D1E4FF;
+        --md-sys-color-on-primary-container: #001D36;
+        --md-sys-color-secondary: #535F70;
+        --md-sys-color-on-secondary: #FFFFFF;
+        --md-sys-color-secondary-container: #D7E3F7;
+        --md-sys-color-on-secondary-container: #101C2B;
+        --md-sys-color-tertiary: #1565C0;
+        --md-sys-color-surface: #F8F9FF;
+        --md-sys-color-on-surface: #191C20;
+        --md-sys-color-on-surface-variant: #44474F;
+        --md-sys-color-surface-container: #ECEDF4;
+        --md-sys-color-surface-container-low: #F2F3FA;
+        --md-sys-color-surface-container-high: #E6E8EE;
+        --md-sys-color-surface-container-highest: #DEE3EB;
+        --md-sys-color-outline: #73777F;
+        --md-sys-color-outline-variant: #C3C7CF;
+        --md-sys-color-error: #BA1A1A;
+
+        --md-ref-typeface-plain: 'Roboto', sans-serif;
+        --md-ref-typeface-brand: 'Roboto', sans-serif;
+
+        --md-filled-text-field-container-color: #E8EEF7;
+        --md-filled-text-field-focus-active-indicator-color: #1565C0;
+        --md-filled-text-field-hover-active-indicator-color: #1565C0;
+        --md-filled-text-field-focus-label-text-color: #1565C0;
+        --md-filled-text-field-active-indicator-color: #90A4C4;
+        --md-filled-text-field-label-text-color: #44474F;
+        --md-filled-text-field-input-text-color: #191C20;
+        --md-filled-text-field-leading-icon-color: #1565C0;
+
+        --md-filled-select-text-field-container-color: #E8EEF7;
+        --md-filled-select-text-field-focus-active-indicator-color: #1565C0;
+        --md-filled-select-text-field-hover-active-indicator-color: #1565C0;
+        --md-filled-select-text-field-focus-label-text-color: #1565C0;
+        --md-filled-select-text-field-active-indicator-color: #90A4C4;
+        --md-filled-select-text-field-input-text-color: #191C20;
+        --md-filled-select-text-field-leading-icon-color: #1565C0;
+
+        --md-filled-button-container-color: #1565C0;
+        --md-filled-button-label-text-color: #FFFFFF;
+
+        --md-outlined-button-outline-color: #1565C0;
+        --md-outlined-button-label-text-color: #1565C0;
+
+        --md-filled-tonal-button-container-color: #D1E4FF;
+        --md-filled-tonal-button-label-text-color: #001D36;
+      }
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Roboto', sans-serif;
+        background: var(--md-sys-color-surface);
+        color: var(--md-sys-color-on-surface);
+      }
+
+      davgus-ambulance-wl-app {
+        display: block;
+        height: 100%;
+      }
+    </style>
   </head>
-  <body style="font-family: 'Roboto'">
-    <davgus-ambulance-wl-app></davgus-ambulance-wl-app>
+  <body>
+    <davgus-ambulance-wl-app base-path="/"></davgus-ambulance-wl-app>
   </body>
 </html>

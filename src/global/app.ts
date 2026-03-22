@@ -9,5 +9,12 @@ import '@material/web/button/filled-button';
 import '@material/web/button/filled-tonal-button';
 import '@material/web/button/outlined-button';
 import '@material/web/divider/divider';
+import '@material/web/iconbutton/filled-icon-button';
+import '@material/web/tabs/tabs';
+import '@material/web/tabs/primary-tab';
 
-export default function () {}
+import { registerNavigationApi } from './navigation.js';
+
+export default function () {
+  registerNavigationApi();
+}
