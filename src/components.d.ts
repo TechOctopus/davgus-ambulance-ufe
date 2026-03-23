@@ -7,6 +7,25 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
     interface DavgusAmbulanceWlApp {
+        "apiBase": string;
+        /**
+          * @default ''
+         */
+        "basePath": string;
+    }
+    interface DavgusDepartmentEditor {
+    }
+    interface DavgusDepartmentList {
+    }
+    interface DavgusPatientDetail {
+    }
+    interface DavgusPatientEditor {
+    }
+    interface DavgusPatientList {
+    }
+    interface DavgusPlacementEditor {
+    }
+    interface DavgusPlacementList {
     }
 }
 declare global {
@@ -16,15 +35,96 @@ declare global {
         prototype: HTMLDavgusAmbulanceWlAppElement;
         new (): HTMLDavgusAmbulanceWlAppElement;
     };
+    interface HTMLDavgusDepartmentEditorElement extends Components.DavgusDepartmentEditor, HTMLStencilElement {
+    }
+    var HTMLDavgusDepartmentEditorElement: {
+        prototype: HTMLDavgusDepartmentEditorElement;
+        new (): HTMLDavgusDepartmentEditorElement;
+    };
+    interface HTMLDavgusDepartmentListElement extends Components.DavgusDepartmentList, HTMLStencilElement {
+    }
+    var HTMLDavgusDepartmentListElement: {
+        prototype: HTMLDavgusDepartmentListElement;
+        new (): HTMLDavgusDepartmentListElement;
+    };
+    interface HTMLDavgusPatientDetailElement extends Components.DavgusPatientDetail, HTMLStencilElement {
+    }
+    var HTMLDavgusPatientDetailElement: {
+        prototype: HTMLDavgusPatientDetailElement;
+        new (): HTMLDavgusPatientDetailElement;
+    };
+    interface HTMLDavgusPatientEditorElement extends Components.DavgusPatientEditor, HTMLStencilElement {
+    }
+    var HTMLDavgusPatientEditorElement: {
+        prototype: HTMLDavgusPatientEditorElement;
+        new (): HTMLDavgusPatientEditorElement;
+    };
+    interface HTMLDavgusPatientListElement extends Components.DavgusPatientList, HTMLStencilElement {
+    }
+    var HTMLDavgusPatientListElement: {
+        prototype: HTMLDavgusPatientListElement;
+        new (): HTMLDavgusPatientListElement;
+    };
+    interface HTMLDavgusPlacementEditorElement extends Components.DavgusPlacementEditor, HTMLStencilElement {
+    }
+    var HTMLDavgusPlacementEditorElement: {
+        prototype: HTMLDavgusPlacementEditorElement;
+        new (): HTMLDavgusPlacementEditorElement;
+    };
+    interface HTMLDavgusPlacementListElement extends Components.DavgusPlacementList, HTMLStencilElement {
+    }
+    var HTMLDavgusPlacementListElement: {
+        prototype: HTMLDavgusPlacementListElement;
+        new (): HTMLDavgusPlacementListElement;
+    };
     interface HTMLElementTagNameMap {
         "davgus-ambulance-wl-app": HTMLDavgusAmbulanceWlAppElement;
+        "davgus-department-editor": HTMLDavgusDepartmentEditorElement;
+        "davgus-department-list": HTMLDavgusDepartmentListElement;
+        "davgus-patient-detail": HTMLDavgusPatientDetailElement;
+        "davgus-patient-editor": HTMLDavgusPatientEditorElement;
+        "davgus-patient-list": HTMLDavgusPatientListElement;
+        "davgus-placement-editor": HTMLDavgusPlacementEditorElement;
+        "davgus-placement-list": HTMLDavgusPlacementListElement;
     }
 }
 declare namespace LocalJSX {
     interface DavgusAmbulanceWlApp {
+        "apiBase"?: string;
+        /**
+          * @default ''
+         */
+        "basePath"?: string;
     }
+    interface DavgusDepartmentEditor {
+    }
+    interface DavgusDepartmentList {
+    }
+    interface DavgusPatientDetail {
+    }
+    interface DavgusPatientEditor {
+    }
+    interface DavgusPatientList {
+    }
+    interface DavgusPlacementEditor {
+    }
+    interface DavgusPlacementList {
+    }
+
+    interface DavgusAmbulanceWlAppAttributes {
+        "basePath": string;
+        "apiBase": string;
+    }
+
     interface IntrinsicElements {
-        "davgus-ambulance-wl-app": DavgusAmbulanceWlApp;
+        "davgus-ambulance-wl-app": Omit<DavgusAmbulanceWlApp, keyof DavgusAmbulanceWlAppAttributes> & { [K in keyof DavgusAmbulanceWlApp & keyof DavgusAmbulanceWlAppAttributes]?: DavgusAmbulanceWlApp[K] } & { [K in keyof DavgusAmbulanceWlApp & keyof DavgusAmbulanceWlAppAttributes as `attr:${K}`]?: DavgusAmbulanceWlAppAttributes[K] } & { [K in keyof DavgusAmbulanceWlApp & keyof DavgusAmbulanceWlAppAttributes as `prop:${K}`]?: DavgusAmbulanceWlApp[K] };
+        "davgus-department-editor": DavgusDepartmentEditor;
+        "davgus-department-list": DavgusDepartmentList;
+        "davgus-patient-detail": DavgusPatientDetail;
+        "davgus-patient-editor": DavgusPatientEditor;
+        "davgus-patient-list": DavgusPatientList;
+        "davgus-placement-editor": DavgusPlacementEditor;
+        "davgus-placement-list": DavgusPlacementList;
     }
 }
 export { LocalJSX as JSX };
@@ -32,6 +132,13 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "davgus-ambulance-wl-app": LocalJSX.IntrinsicElements["davgus-ambulance-wl-app"] & JSXBase.HTMLAttributes<HTMLDavgusAmbulanceWlAppElement>;
+            "davgus-department-editor": LocalJSX.IntrinsicElements["davgus-department-editor"] & JSXBase.HTMLAttributes<HTMLDavgusDepartmentEditorElement>;
+            "davgus-department-list": LocalJSX.IntrinsicElements["davgus-department-list"] & JSXBase.HTMLAttributes<HTMLDavgusDepartmentListElement>;
+            "davgus-patient-detail": LocalJSX.IntrinsicElements["davgus-patient-detail"] & JSXBase.HTMLAttributes<HTMLDavgusPatientDetailElement>;
+            "davgus-patient-editor": LocalJSX.IntrinsicElements["davgus-patient-editor"] & JSXBase.HTMLAttributes<HTMLDavgusPatientEditorElement>;
+            "davgus-patient-list": LocalJSX.IntrinsicElements["davgus-patient-list"] & JSXBase.HTMLAttributes<HTMLDavgusPatientListElement>;
+            "davgus-placement-editor": LocalJSX.IntrinsicElements["davgus-placement-editor"] & JSXBase.HTMLAttributes<HTMLDavgusPlacementEditorElement>;
+            "davgus-placement-list": LocalJSX.IntrinsicElements["davgus-placement-list"] & JSXBase.HTMLAttributes<HTMLDavgusPlacementListElement>;
         }
     }
 }
