@@ -8,3 +8,15 @@ export interface Patient {
     email: string;
     archived: boolean;
 }
+
+export interface Placement {
+    id: string;
+    patientId: string;
+    patientName: string;
+    departmentId: string;
+    departmentName: string;
+    roomId: string;
+    roomNumber: string;
+    admissionDate: string;
+    notes: string;
+}

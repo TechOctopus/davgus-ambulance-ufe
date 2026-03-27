@@ -1,4 +1,4 @@
-import { Patient } from '../models';
+import { Patient, Placement } from '../models';
 
 const initialPatients: Patient[] = [
     {
@@ -33,6 +33,39 @@ const initialPatients: Patient[] = [
     },
 ];
 
+const initialPlacements: Placement[] = [
+    {
+        id: 'pl1',
+        patientId: 'p1',
+        patientName: 'Ján Novák',
+        departmentId: 'd1',
+        departmentName: 'Kardiológia',
+        roomId: 'r1',
+        roomNumber: '101',
+        admissionDate: '2024-01-15',
+        notes: 'Plánovaná hospitalizácia',
+    },
+    {
+        id: 'pl2',
+        patientId: 'p2',
+        patientName: 'Mária Kováčová',
+        departmentId: 'd2',
+        departmentName: 'Chirurgia',
+        roomId: 'r4',
+        roomNumber: '201',
+        admissionDate: '2024-02-01',
+        notes: 'Po operácii',
+    },
+];
+
+let placements: Placement[] = deepCopy(initialPlacements);
+
+let nextId = 100;
+
+function generateId(): string {
+    return `id-${nextId++}`;
+}
+
 function deepCopy<T>(obj: T): T {
     return JSON.parse(JSON.stringify(obj));
 }
@@ -45,4 +78,38 @@ export function resetDummyData(): void {
 
 export function getPatients(): Patient[] {
     return patients.filter(p => !p.archived);
+}
+
+export function getPatient(id: string): Patient | undefined {
+    return patients.find(p => p.id === id);
+}
+
+export function createPatient(patient: Patient): Patient {
+    const newPatient = { ...patient, id: generateId() };
+    patients.push(newPatient);
+    return newPatient;
+}
+
+export function updatePatient(patient: Patient): Patient {
+    const index = patients.findIndex(p => p.id === patient.id);
+    if (index >= 0) {
+        patients[index] = { ...patient };
+        placements.forEach(pl => {
+            if (pl.patientId === patient.id) {
+                pl.patientName = patient.name;
+            }
+        });
+        return patients[index];
+    }
+    return undefined;
+}
+
+export function deletePatient(id: string): boolean {
+    const index = patients.findIndex(p => p.id === id);
+    if (index >= 0) {
+        patients[index].archived = true;
+        placements = placements.filter(pl => pl.patientId !== id);
+        return true;
+    }
+    return false;
 }

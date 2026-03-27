@@ -1,3 +1,119 @@
 :host {
   display: block;
+  width: 100%;
+}
+
+.editor-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.editor-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--md-sys-color-on-surface, #191C20);
+}
+
+.editor-header .header-icon {
+  color: var(--md-sys-color-primary, #1565C0);
+  --md-icon-size: 28px;
+}
+
+.form-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  border: 1px solid #C9D6E8;
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 4px rgba(21, 101, 192, 0.06);
+}
+
+.form-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--md-sys-color-primary, #1565C0);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  margin-top: 4px;
+}
+
+.form-section-title md-icon {
+  --md-icon-size: 18px;
+  color: var(--md-sys-color-primary, #1565C0);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+form md-divider {
+  margin: 8px 0;
+}
+
+.field-label {
+  font-size: 13px;
+  color: var(--md-sys-color-secondary, #535F70);
+  margin-bottom: -4px;
+}
+
+.date-input {
+  padding: 14px 16px;
+  border-radius: 4px 4px 0 0;
+  border: none;
+  border-bottom: 1px solid #90A4C4;
+  background: #E8EEF7;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  color: #191C20;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.date-input:focus {
+  border-bottom-color: #1565C0;
+  border-bottom-width: 2px;
+  box-shadow: none;
+}
+
+.date-input:hover {
+  border-bottom-color: #1565C0;
+}
+
+.error-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px;
+  color: var(--md-sys-color-error, #BA1A1A);
+  text-align: center;
+}
+
+.error-icon {
+  --md-icon-size: 48px;
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.stretch-fill {
+  flex: 10 0 0;
 }
