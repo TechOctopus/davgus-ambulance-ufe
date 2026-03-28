@@ -134,6 +134,7 @@ export class DavgusPatientEditor {
               type="date"
               class="date-input"
               required
+              title="Dátum narodenia"
               value={this.entry?.birthDate}
               onInput={(ev: Event) => {
                 if (this.entry) {

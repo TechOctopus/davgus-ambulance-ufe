@@ -14,8 +14,11 @@ export namespace Components {
         "basePath": string;
     }
     interface DavgusDepartmentEditor {
+        "apiBase": string;
+        "entryId": string;
     }
     interface DavgusDepartmentList {
+        "apiBase": string;
     }
     interface DavgusPatientDetail {
     }
@@ -30,6 +33,14 @@ export namespace Components {
     }
     interface DavgusPlacementList {
     }
+}
+export interface DavgusDepartmentEditorCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDavgusDepartmentEditorElement;
+}
+export interface DavgusDepartmentListCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDavgusDepartmentListElement;
 }
 export interface DavgusPatientEditorCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -46,13 +57,35 @@ declare global {
         prototype: HTMLDavgusAmbulanceWlAppElement;
         new (): HTMLDavgusAmbulanceWlAppElement;
     };
+    interface HTMLDavgusDepartmentEditorElementEventMap {
+        "editor-closed": string;
+    }
     interface HTMLDavgusDepartmentEditorElement extends Components.DavgusDepartmentEditor, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDavgusDepartmentEditorElementEventMap>(type: K, listener: (this: HTMLDavgusDepartmentEditorElement, ev: DavgusDepartmentEditorCustomEvent<HTMLDavgusDepartmentEditorElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDavgusDepartmentEditorElementEventMap>(type: K, listener: (this: HTMLDavgusDepartmentEditorElement, ev: DavgusDepartmentEditorCustomEvent<HTMLDavgusDepartmentEditorElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLDavgusDepartmentEditorElement: {
         prototype: HTMLDavgusDepartmentEditorElement;
         new (): HTMLDavgusDepartmentEditorElement;
     };
+    interface HTMLDavgusDepartmentListElementEventMap {
+        "department-clicked": string;
+    }
     interface HTMLDavgusDepartmentListElement extends Components.DavgusDepartmentList, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDavgusDepartmentListElementEventMap>(type: K, listener: (this: HTMLDavgusDepartmentListElement, ev: DavgusDepartmentListCustomEvent<HTMLDavgusDepartmentListElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDavgusDepartmentListElementEventMap>(type: K, listener: (this: HTMLDavgusDepartmentListElement, ev: DavgusDepartmentListCustomEvent<HTMLDavgusDepartmentListElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLDavgusDepartmentListElement: {
         prototype: HTMLDavgusDepartmentListElement;
@@ -130,8 +163,13 @@ declare namespace LocalJSX {
         "basePath"?: string;
     }
     interface DavgusDepartmentEditor {
+        "apiBase"?: string;
+        "entryId"?: string;
+        "onEditor-closed"?: (event: DavgusDepartmentEditorCustomEvent<string>) => void;
     }
     interface DavgusDepartmentList {
+        "apiBase"?: string;
+        "onDepartment-clicked"?: (event: DavgusDepartmentListCustomEvent<string>) => void;
     }
     interface DavgusPatientDetail {
     }
@@ -153,6 +191,13 @@ declare namespace LocalJSX {
         "basePath": string;
         "apiBase": string;
     }
+    interface DavgusDepartmentEditorAttributes {
+        "entryId": string;
+        "apiBase": string;
+    }
+    interface DavgusDepartmentListAttributes {
+        "apiBase": string;
+    }
     interface DavgusPatientEditorAttributes {
         "entryId": string;
         "apiBase": string;
@@ -163,8 +208,8 @@ declare namespace LocalJSX {
 
     interface IntrinsicElements {
         "davgus-ambulance-wl-app": Omit<DavgusAmbulanceWlApp, keyof DavgusAmbulanceWlAppAttributes> & { [K in keyof DavgusAmbulanceWlApp & keyof DavgusAmbulanceWlAppAttributes]?: DavgusAmbulanceWlApp[K] } & { [K in keyof DavgusAmbulanceWlApp & keyof DavgusAmbulanceWlAppAttributes as `attr:${K}`]?: DavgusAmbulanceWlAppAttributes[K] } & { [K in keyof DavgusAmbulanceWlApp & keyof DavgusAmbulanceWlAppAttributes as `prop:${K}`]?: DavgusAmbulanceWlApp[K] };
-        "davgus-department-editor": DavgusDepartmentEditor;
-        "davgus-department-list": DavgusDepartmentList;
+        "davgus-department-editor": Omit<DavgusDepartmentEditor, keyof DavgusDepartmentEditorAttributes> & { [K in keyof DavgusDepartmentEditor & keyof DavgusDepartmentEditorAttributes]?: DavgusDepartmentEditor[K] } & { [K in keyof DavgusDepartmentEditor & keyof DavgusDepartmentEditorAttributes as `attr:${K}`]?: DavgusDepartmentEditorAttributes[K] } & { [K in keyof DavgusDepartmentEditor & keyof DavgusDepartmentEditorAttributes as `prop:${K}`]?: DavgusDepartmentEditor[K] };
+        "davgus-department-list": Omit<DavgusDepartmentList, keyof DavgusDepartmentListAttributes> & { [K in keyof DavgusDepartmentList & keyof DavgusDepartmentListAttributes]?: DavgusDepartmentList[K] } & { [K in keyof DavgusDepartmentList & keyof DavgusDepartmentListAttributes as `attr:${K}`]?: DavgusDepartmentListAttributes[K] } & { [K in keyof DavgusDepartmentList & keyof DavgusDepartmentListAttributes as `prop:${K}`]?: DavgusDepartmentList[K] };
         "davgus-patient-detail": DavgusPatientDetail;
         "davgus-patient-editor": Omit<DavgusPatientEditor, keyof DavgusPatientEditorAttributes> & { [K in keyof DavgusPatientEditor & keyof DavgusPatientEditorAttributes]?: DavgusPatientEditor[K] } & { [K in keyof DavgusPatientEditor & keyof DavgusPatientEditorAttributes as `attr:${K}`]?: DavgusPatientEditorAttributes[K] } & { [K in keyof DavgusPatientEditor & keyof DavgusPatientEditorAttributes as `prop:${K}`]?: DavgusPatientEditor[K] };
         "davgus-patient-list": Omit<DavgusPatientList, keyof DavgusPatientListAttributes> & { [K in keyof DavgusPatientList & keyof DavgusPatientListAttributes]?: DavgusPatientList[K] } & { [K in keyof DavgusPatientList & keyof DavgusPatientListAttributes as `attr:${K}`]?: DavgusPatientListAttributes[K] } & { [K in keyof DavgusPatientList & keyof DavgusPatientListAttributes as `prop:${K}`]?: DavgusPatientList[K] };
