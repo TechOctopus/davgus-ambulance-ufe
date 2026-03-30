@@ -167,3 +167,32 @@ export function getOccupiedBeds(departmentId: string): number {
 export function getTotalBeds(department: Department): number {
   return department.rooms.filter(r => r.status === 'active').reduce((sum, r) => sum + r.capacity, 0);
 }
+
+export function getPlacements(): Placement[] {
+  return [...placements];
+}
+
+export function getPlacement(id: string): Placement | undefined {
+  return placements.find(p => p.id === id);
+}
+
+export function createPlacement(placement: Placement): Placement {
+  const newPlacement = { ...placement, id: generateId() };
+  placements.push(newPlacement);
+  return newPlacement;
+}
+
+export function updatePlacement(placement: Placement): Placement {
+  const index = placements.findIndex(p => p.id === placement.id);
+  if (index >= 0) {
+    placements[index] = { ...placement };
+    return placements[index];
+  }
+  return undefined;
+}
+
+export function deletePlacement(id: string): boolean {
+  const initialLength = placements.length;
+  placements = placements.filter(p => p.id !== id);
+  return placements.length < initialLength;
+}
