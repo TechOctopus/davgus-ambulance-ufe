@@ -14,11 +14,11 @@
   margin: 0;
   font-size: 22px;
   font-weight: 500;
-  color: var(--md-sys-color-on-surface, #191C20);
+  color: var(--md-sys-color-on-surface, #191c20);
 }
 
 .editor-header .header-icon {
-  color: var(--md-sys-color-primary, #1565C0);
+  color: var(--md-sys-color-primary, #1565c0);
   --md-icon-size: 28px;
 }
 
@@ -30,14 +30,14 @@
 }
 
 .room-card {
-  background: #FFFFFF;
-  border: 1px solid #C9D6E8;
+  background: var(--md-sys-color-surface-container-low, #f3f6fc);
+  border: 1px solid var(--md-sys-color-outline-variant, #c3c7cf);
   border-radius: 16px;
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  box-shadow: 0 1px 4px rgba(21, 101, 192, 0.06);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
 .room-card-header {
@@ -52,12 +52,12 @@
   gap: 6px;
   font-size: 16px;
   font-weight: 600;
-  color: var(--md-sys-color-on-surface, #191C20);
+  color: var(--md-sys-color-on-surface, #191c20);
 }
 
 .room-number md-icon {
   --md-icon-size: 20px;
-  color: var(--md-sys-color-primary, #1565C0);
+  color: var(--md-sys-color-primary, #1565c0);
 }
 
 .status-dot {
@@ -69,7 +69,7 @@
   flex-direction: column;
   align-items: center;
   padding: 32px;
-  color: var(--md-sys-color-error, #BA1A1A);
+  color: var(--md-sys-color-error, #ba1a1a);
   text-align: center;
 }
 

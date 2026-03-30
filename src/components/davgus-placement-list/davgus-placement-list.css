@@ -17,11 +17,11 @@
   margin: 0;
   font-size: 22px;
   font-weight: 500;
-  color: var(--md-sys-color-on-surface, #191C20);
+  color: var(--md-sys-color-on-surface, #191c20);
 }
 
 .badge {
-  background: var(--md-sys-color-primary, #1565C0);
+  background: var(--md-sys-color-primary, #1565c0);
   color: var(--md-sys-color-on-primary, #fff);
   border-radius: 12px;
   padding: 2px 10px;
@@ -40,24 +40,26 @@
   align-items: center;
   gap: 14px;
   padding: 14px 16px;
-  background: #FFFFFF;
+  background: var(--md-sys-color-surface-container-low, #f3f6fc);
   border-radius: 16px;
   cursor: pointer;
-  transition: background 0.15s, box-shadow 0.15s;
-  border: 1px solid #C9D6E8;
+  transition:
+    background 0.15s,
+    box-shadow 0.15s;
+  border: 1px solid var(--md-sys-color-outline-variant, #c3c7cf);
 }
 
 .placement-card:hover {
-  background: #E3EDFB;
-  box-shadow: 0 2px 8px rgba(21, 101, 192, 0.12);
-  border-color: #90A4C4;
+  background: var(--md-sys-color-surface-container, #e9eef6);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-color: var(--md-sys-color-outline, #73777f);
 }
 
 .pl-icon-wrap {
   width: 44px;
   height: 44px;
   border-radius: 14px;
-  background: rgba(21, 101, 192, 0.1);
+  background: var(--md-sys-color-primary-container, #d6e3ff);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,7 +67,7 @@
 }
 
 .pl-icon-wrap md-icon {
-  color: var(--md-sys-color-primary, #1565C0);
+  color: var(--md-sys-color-on-primary-container, #001b3f);
   --md-icon-size: 22px;
 }
 
@@ -77,7 +79,7 @@
 .pl-patient {
   font-size: 16px;
   font-weight: 500;
-  color: var(--md-sys-color-on-surface, #191C20);
+  color: var(--md-sys-color-on-surface, #191c20);
   margin-bottom: 4px;
 }
 
@@ -86,17 +88,17 @@
   align-items: center;
   gap: 4px;
   font-size: 13px;
-  color: var(--md-sys-color-secondary, #535F70);
+  color: var(--md-sys-color-on-surface-variant, #44474e);
 }
 
 .detail-icon {
   --md-icon-size: 16px;
   font-size: 16px;
-  color: var(--md-sys-color-secondary, #535F70);
+  color: var(--md-sys-color-on-surface-variant, #44474e);
 }
 
 .chevron {
-  color: var(--md-sys-color-outline, #73777F);
+  color: var(--md-sys-color-on-surface-variant, #44474e);
   --md-icon-size: 20px;
   flex-shrink: 0;
 }
@@ -107,14 +109,14 @@
   align-items: center;
   justify-content: center;
   padding: 48px 16px;
-  color: var(--md-sys-color-outline, #73777F);
+  color: var(--md-sys-color-outline, #73777f);
 }
 
 .empty-icon {
   --md-icon-size: 64px;
   font-size: 64px;
   margin-bottom: 12px;
-  color: var(--md-sys-color-outline-variant, #C3C7CF);
+  color: var(--md-sys-color-outline-variant, #c3c7cf);
 }
 
 .empty-state p {
@@ -126,7 +128,7 @@
   position: fixed;
   right: 24px;
   bottom: 24px;
-  --md-filled-icon-button-container-color: var(--md-sys-color-primary, #1565C0);
+  --md-filled-icon-button-container-color: var(--md-sys-color-primary, #1565c0);
   --md-filled-icon-button-icon-color: var(--md-sys-color-on-primary, #fff);
   --md-filled-icon-button-container-size: 56px;
   --md-filled-icon-button-icon-size: 28px;

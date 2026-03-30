@@ -14,21 +14,21 @@
   margin: 0;
   font-size: 22px;
   font-weight: 500;
-  color: var(--md-sys-color-on-surface, #191C20);
+  color: var(--md-sys-color-on-surface, #191c20);
 }
 
 .editor-header .header-icon {
-  color: var(--md-sys-color-primary, #1565C0);
+  color: var(--md-sys-color-primary, #1565c0);
   --md-icon-size: 28px;
 }
 
 .form-card {
-  background: #FFFFFF;
+  background: var(--md-sys-color-surface-container-low, #f3f6fc);
   border-radius: 16px;
-  border: 1px solid #C9D6E8;
+  border: 1px solid var(--md-sys-color-outline-variant, #c3c7cf);
   padding: 24px;
   margin-bottom: 16px;
-  box-shadow: 0 1px 4px rgba(21, 101, 192, 0.06);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
 .form-section-title {
@@ -37,7 +37,7 @@
   gap: 8px;
   font-size: 14px;
   font-weight: 500;
-  color: var(--md-sys-color-primary, #1565C0);
+  color: var(--md-sys-color-primary, #1565c0);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 12px;
@@ -46,7 +46,7 @@
 
 .form-section-title md-icon {
   --md-icon-size: 18px;
-  color: var(--md-sys-color-primary, #1565C0);
+  color: var(--md-sys-color-primary, #1565c0);
 }
 
 form {
@@ -61,7 +61,7 @@ form md-divider {
 
 .field-label {
   font-size: 13px;
-  color: var(--md-sys-color-secondary, #535F70);
+  color: var(--md-sys-color-on-surface-variant, #44474e);
   margin-bottom: -4px;
 }
 
@@ -69,25 +69,27 @@ form md-divider {
   padding: 14px 16px;
   border-radius: 4px 4px 0 0;
   border: none;
-  border-bottom: 1px solid #90A4C4;
-  background: #E8EEF7;
+  border-bottom: 1px solid var(--md-sys-color-outline, #73777f);
+  background: var(--md-sys-color-surface-container-high, #e6e8ee);
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
-  color: #191C20;
+  color: var(--md-sys-color-on-surface, #191c20);
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
   width: 100%;
   box-sizing: border-box;
 }
 
 .date-input:focus {
-  border-bottom-color: #1565C0;
+  border-bottom-color: var(--md-sys-color-primary, #1565c0);
   border-bottom-width: 2px;
   box-shadow: none;
 }
 
 .date-input:hover {
-  border-bottom-color: #1565C0;
+  border-bottom-color: var(--md-sys-color-primary, #1565c0);
 }
 
 .error-card {
@@ -95,7 +97,7 @@ form md-divider {
   flex-direction: column;
   align-items: center;
   padding: 32px;
-  color: var(--md-sys-color-error, #BA1A1A);
+  color: var(--md-sys-color-error, #ba1a1a);
   text-align: center;
 }
 

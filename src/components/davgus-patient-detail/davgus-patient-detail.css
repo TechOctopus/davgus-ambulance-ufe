@@ -14,7 +14,7 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: var(--md-sys-color-primary, #1565C0);
+  background: var(--md-sys-color-primary, #1565c0);
   color: #fff;
   display: flex;
   align-items: center;
@@ -28,26 +28,26 @@
   margin: 0;
   font-size: 24px;
   font-weight: 500;
-  color: var(--md-sys-color-on-surface, #191C20);
+  color: var(--md-sys-color-on-surface, #191c20);
 }
 
 .patient-sub {
   font-size: 14px;
-  color: var(--md-sys-color-secondary, #535F70);
+  color: var(--md-sys-color-on-surface-variant, #44474e);
 }
 
 .info-card {
-  background: #FFFFFF;
-  border: 1px solid #C9D6E8;
+  background: var(--md-sys-color-surface-container-low, #f3f6fc);
+  border: 1px solid var(--md-sys-color-outline-variant, #c3c7cf);
   border-radius: 16px;
   padding: 16px 20px;
   margin-bottom: 12px;
-  box-shadow: 0 1px 4px rgba(21, 101, 192, 0.06);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
 .info-card.placement-active {
-  border-color: #1565C0;
-  background: #E3EDFB;
+  border-color: var(--md-sys-color-primary, #1565c0);
+  background: var(--md-sys-color-primary-container, #d6e3ff);
 }
 
 .card-section-title {
@@ -56,7 +56,7 @@
   gap: 8px;
   font-size: 13px;
   font-weight: 500;
-  color: var(--md-sys-color-primary, #1565C0);
+  color: var(--md-sys-color-primary, #1565c0);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 12px;
@@ -64,7 +64,7 @@
 
 .card-section-title md-icon {
   --md-icon-size: 18px;
-  color: var(--md-sys-color-primary, #1565C0);
+  color: var(--md-sys-color-primary, #1565c0);
 }
 
 .info-grid {
@@ -81,7 +81,7 @@
 
 .info-label {
   font-size: 12px;
-  color: var(--md-sys-color-secondary, #535F70);
+  color: var(--md-sys-color-on-surface-variant, #44474e);
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
@@ -89,14 +89,14 @@
 .info-value {
   font-size: 15px;
   font-weight: 500;
-  color: var(--md-sys-color-on-surface, #191C20);
+  color: var(--md-sys-color-on-surface, #191c20);
 }
 
 .empty-placement {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--md-sys-color-outline, #73777F);
+  color: var(--md-sys-color-outline, #73777f);
   font-size: 14px;
 }
 
@@ -109,7 +109,7 @@
   flex-direction: column;
   align-items: center;
   padding: 32px;
-  color: var(--md-sys-color-error, #BA1A1A);
+  color: var(--md-sys-color-error, #ba1a1a);
   text-align: center;
 }
 

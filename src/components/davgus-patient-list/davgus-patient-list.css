@@ -45,13 +45,19 @@
   align-items: center;
   gap: 14px;
   padding: 14px 16px;
-  background: #ffffff;
+  background: var(--md-sys-color-surface-container-low, #f3f6fc);
   border-radius: 16px;
   cursor: pointer;
   transition:
     background 0.15s,
     box-shadow 0.15s;
-  border: 1px solid #c9d6e8;
+  border: 1px solid var(--md-sys-color-outline-variant, #c3c7cf);
+}
+
+.patient-card:hover,
+.patient-card:focus-within {
+  background: var(--md-sys-color-surface-container, #e9eef6);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .avatar {
@@ -84,13 +90,13 @@
   align-items: center;
   gap: 4px;
   font-size: 13px;
-  color: var(--md-sys-color-secondary, #535f70);
+  color: var(--md-sys-color-on-surface-variant, #44474e);
 }
 
 .detail-icon {
   --md-icon-size: 16px;
   font-size: 16px;
-  color: var(--md-sys-color-secondary, #535f70);
+  color: var(--md-sys-color-on-surface-variant, #44474e);
 }
 
 .chevron {
