@@ -36,9 +36,7 @@ export class DavgusPatientList {
   }
 
   render() {
-    const filtered = this.patients.filter(
-      p => p.name.toLowerCase().includes(this.searchQuery.toLowerCase()) || p.insuranceId.includes(this.searchQuery),
-    );
+    const filtered = this.patients.filter(p => p.name.toLowerCase().includes(this.searchQuery.toLowerCase()) || p.insuranceId.includes(this.searchQuery));
 
     return (
       <Host>
@@ -66,7 +64,7 @@ export class DavgusPatientList {
         ) : (
           <div class="card-list">
             {filtered.map(patient => (
-              <div class="patient-card" onClick={() => this.patientClicked.emit(patient.id)}>
+              <div class="patient-card">
                 <div class="avatar" style={{ background: this.getAvatarColor(patient.name) }}>
                   {this.getInitials(patient.name)}
                 </div>
@@ -81,7 +79,12 @@ export class DavgusPatientList {
                     {patient.phone || '—'}
                   </div>
                 </div>
-                <md-icon class="chevron">chevron_right</md-icon>
+                <md-icon-button onclick={() => this.patientClicked.emit(`view:${patient.id}`)}>
+                  <md-icon>visibility</md-icon>
+                </md-icon-button>
+                <md-icon-button onclick={() => this.patientClicked.emit(`edit:${patient.id}`)}>
+                  <md-icon>edit</md-icon>
+                </md-icon-button>
               </div>
             ))}
           </div>

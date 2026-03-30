@@ -1,3 +1,127 @@
 :host {
   display: block;
+  width: 100%;
+}
+
+.detail-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--md-sys-color-primary, #1565C0);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.patient-name {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--md-sys-color-on-surface, #191C20);
+}
+
+.patient-sub {
+  font-size: 14px;
+  color: var(--md-sys-color-secondary, #535F70);
+}
+
+.info-card {
+  background: #FFFFFF;
+  border: 1px solid #C9D6E8;
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 4px rgba(21, 101, 192, 0.06);
+}
+
+.info-card.placement-active {
+  border-color: #1565C0;
+  background: #E3EDFB;
+}
+
+.card-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--md-sys-color-primary, #1565C0);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.card-section-title md-icon {
+  --md-icon-size: 18px;
+  color: var(--md-sys-color-primary, #1565C0);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.info-label {
+  font-size: 12px;
+  color: var(--md-sys-color-secondary, #535F70);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.info-value {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--md-sys-color-on-surface, #191C20);
+}
+
+.empty-placement {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--md-sys-color-outline, #73777F);
+  font-size: 14px;
+}
+
+.empty-placement md-icon {
+  --md-icon-size: 20px;
+}
+
+.error-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px;
+  color: var(--md-sys-color-error, #BA1A1A);
+  text-align: center;
+}
+
+.error-icon {
+  --md-icon-size: 48px;
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-start;
+  gap: 12px;
+  margin-top: 8px;
 }

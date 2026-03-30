@@ -196,3 +196,7 @@ export function deletePlacement(id: string): boolean {
   placements = placements.filter(p => p.id !== id);
   return placements.length < initialLength;
 }
+
+export function getPlacementForPatient(patientId: string): Placement | undefined {
+  return placements.find(p => p.patientId === patientId);
+}

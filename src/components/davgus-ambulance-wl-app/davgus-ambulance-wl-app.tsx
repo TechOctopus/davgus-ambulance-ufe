@@ -66,7 +66,15 @@ export class DavgusAmbulanceWlApp {
         <davgus-placement-list api-base={this.apiBase} onplacement-clicked={(ev: CustomEvent<string>) => this.navigate('./placement/' + ev.detail)}></davgus-placement-list>
       ),
       'placement-editor': <davgus-placement-editor entry-id={entryId} api-base={this.apiBase} oneditor-closed={() => this.navigate('./placements')}></davgus-placement-editor>,
-      'patients': <davgus-patient-list api-base={this.apiBase} onpatient-clicked={(ev: CustomEvent<string>) => this.navigate('./patient/' + ev.detail)}></davgus-patient-list>,
+      'patients': (
+        <davgus-patient-list
+          api-base={this.apiBase}
+          onpatient-clicked={(ev: CustomEvent<string>) => {
+            if (ev.detail.startsWith('view:')) this.navigate('./patient-view/' + ev.detail.slice(5));
+            else this.navigate('./patient/' + ev.detail.slice(5));
+          }}
+        ></davgus-patient-list>
+      ),
     };
     return elements[element];
   }
