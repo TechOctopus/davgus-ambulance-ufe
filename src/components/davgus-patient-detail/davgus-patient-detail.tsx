@@ -1,6 +1,6 @@
 import { Component, Event, EventEmitter, Host, Prop, State, h } from '@stencil/core';
 import { Patient, Placement } from '../../models';
-import { getPatient, getPlacementForPatient } from '../../utils/dummy-data';
+import { getPatient, getPlacementForPatient } from '../../api/ambulance-api';
 
 @Component({
   tag: 'davgus-patient-detail',
@@ -17,13 +17,17 @@ export class DavgusPatientDetail {
   @State() placement: Placement;
   @State() errorMessage: string;
 
-  componentWillLoad() {
-    const patient = getPatient(this.entryId);
-    if (patient) {
-      this.patient = patient;
-      this.placement = getPlacementForPatient(this.entryId);
-    } else {
-      this.errorMessage = `Pacient s ID ${this.entryId} nebol nájdený`;
+  async componentWillLoad() {
+    try {
+      const patient = await getPatient(this.entryId, this.apiBase);
+      if (patient) {
+        this.patient = patient;
+        this.placement = await getPlacementForPatient(this.entryId, this.apiBase);
+      } else {
+        this.errorMessage = `Pacient s ID ${this.entryId} nebol nájdený`;
+      }
+    } catch {
+      this.errorMessage = 'Nepodarilo sa nacitat detail pacienta';
     }
   }
 
@@ -48,7 +52,14 @@ export class DavgusPatientDetail {
     return (
       <Host>
         <div class="detail-header">
-          <div class="avatar">{this.patient.name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase()}</div>
+          <div class="avatar">
+            {this.patient.name
+              .split(' ')
+              .map(w => w[0])
+              .join('')
+              .substring(0, 2)
+              .toUpperCase()}
+          </div>
           <div>
             <h2 class="patient-name">{this.patient.name}</h2>
             <span class="patient-sub">Narodený/á: {this.formatDate(this.patient.birthDate)}</span>

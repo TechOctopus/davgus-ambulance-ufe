@@ -54,6 +54,18 @@ export class DavgusAmbulanceWlApp {
     return 'patients';
   }
 
+  private navigateToPatient(ev: CustomEvent<string>) {
+    if (ev.detail === '@new') {
+      this.navigate('./patient/@new');
+    } else if (ev.detail.startsWith('view:')) {
+      this.navigate('./patient-view/' + ev.detail.slice(5));
+    } else if (ev.detail.startsWith('edit:')) {
+      this.navigate('./patient/' + ev.detail.slice(5));
+    } else {
+      this.navigate('./patient/' + ev.detail);
+    }
+  }
+
   private getElement(element: string, entryId: string) {
     const elements = {
       'patient-editor': <davgus-patient-editor entry-id={entryId} api-base={this.apiBase} oneditor-closed={() => this.navigate('./patients')}></davgus-patient-editor>,
@@ -66,15 +78,7 @@ export class DavgusAmbulanceWlApp {
         <davgus-placement-list api-base={this.apiBase} onplacement-clicked={(ev: CustomEvent<string>) => this.navigate('./placement/' + ev.detail)}></davgus-placement-list>
       ),
       'placement-editor': <davgus-placement-editor entry-id={entryId} api-base={this.apiBase} oneditor-closed={() => this.navigate('./placements')}></davgus-placement-editor>,
-      'patients': (
-        <davgus-patient-list
-          api-base={this.apiBase}
-          onpatient-clicked={(ev: CustomEvent<string>) => {
-            if (ev.detail.startsWith('view:')) this.navigate('./patient-view/' + ev.detail.slice(5));
-            else this.navigate('./patient/' + ev.detail.slice(5));
-          }}
-        ></davgus-patient-list>
-      ),
+      'patients': <davgus-patient-list api-base={this.apiBase} onpatient-clicked={(ev: CustomEvent<string>) => this.navigateToPatient(ev)}></davgus-patient-list>,
     };
     return elements[element];
   }

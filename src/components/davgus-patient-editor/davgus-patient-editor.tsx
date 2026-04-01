@@ -1,6 +1,6 @@
 import { Component, Host, Prop, State, h, EventEmitter, Event } from '@stencil/core';
 import { Patient } from '../../models';
-import { getPatient, createPatient, updatePatient, deletePatient } from '../../utils/dummy-data';
+import { createPatient, deletePatient, getPatient, updatePatient } from '../../api/ambulance-api';
 
 @Component({
   tag: 'davgus-patient-editor',
@@ -19,7 +19,7 @@ export class DavgusPatientEditor {
 
   private formElement: HTMLFormElement;
 
-  componentWillLoad() {
+  async componentWillLoad() {
     if (this.entryId === '@new') {
       this.isValid = false;
       this.entry = {
@@ -33,12 +33,16 @@ export class DavgusPatientEditor {
         archived: false,
       };
     } else {
-      const patient = getPatient(this.entryId);
-      if (patient) {
-        this.entry = { ...patient };
-        this.isValid = true;
-      } else {
-        this.errorMessage = `Pacient s ID ${this.entryId} nebol nájdený`;
+      try {
+        const patient = await getPatient(this.entryId, this.apiBase);
+        if (patient) {
+          this.entry = { ...patient };
+          this.isValid = true;
+        } else {
+          this.errorMessage = `Pacient s ID ${this.entryId} nebol nájdený`;
+        }
+      } catch {
+        this.errorMessage = 'Nepodarilo sa nacitat pacienta';
       }
     }
   }
@@ -71,23 +75,34 @@ export class DavgusPatientEditor {
     return this.isValid;
   }
 
-  private saveEntry() {
+  private async saveEntry() {
     if (!this.validateForm('show-errors')) {
       return;
     }
 
-    if (this.entry.id === '@new') {
-      createPatient(this.entry);
-    } else {
-      updatePatient(this.entry);
+    try {
+      if (this.entry.id === '@new') {
+        await createPatient(this.entry, this.apiBase);
+      } else {
+        const updated = await updatePatient(this.entry, this.apiBase);
+        if (!updated) {
+          this.errorMessage = `Pacient s ID ${this.entry.id} nebol nájdený`;
+          return;
+        }
+      }
+      this.editorClosed.emit('store');
+    } catch {
+      this.errorMessage = 'Nepodarilo sa ulozit pacienta';
     }
-
-    this.editorClosed.emit('store');
   }
 
-  private deleteEntry() {
-    deletePatient(this.entry.id);
-    this.editorClosed.emit('delete');
+  private async deleteEntry() {
+    try {
+      await deletePatient(this.entry.id, this.apiBase);
+      this.editorClosed.emit('delete');
+    } catch {
+      this.errorMessage = 'Nepodarilo sa zmazat pacienta';
+    }
   }
 
   render() {

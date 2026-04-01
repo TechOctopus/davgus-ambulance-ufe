@@ -1,6 +1,6 @@
 import { Component, Host, Prop, State, h, EventEmitter, Event } from '@stencil/core';
 import { Department, Room } from '../../models';
-import { getDepartment, updateDepartment } from '../../utils/dummy-data';
+import { getDepartment, updateDepartment } from '../../api/ambulance-api';
 
 @Component({
   tag: 'davgus-department-editor',
@@ -16,12 +16,16 @@ export class DavgusDepartmentEditor {
   @State() department: Department;
   @State() errorMessage: string;
 
-  componentWillLoad() {
-    const dept = getDepartment(this.entryId);
-    if (dept) {
-      this.department = { ...dept, rooms: dept.rooms.map(r => ({ ...r })) };
-    } else {
-      this.errorMessage = `Oddelenie s ID ${this.entryId} nebolo nájdené`;
+  async componentWillLoad() {
+    try {
+      const dept = await getDepartment(this.entryId, this.apiBase);
+      if (dept) {
+        this.department = { ...dept, rooms: dept.rooms.map(r => ({ ...r })) };
+      } else {
+        this.errorMessage = `Oddelenie s ID ${this.entryId} nebolo nájdené`;
+      }
+    } catch {
+      this.errorMessage = 'Nepodarilo sa nacitat oddelenie';
     }
   }
 
@@ -38,9 +42,17 @@ export class DavgusDepartmentEditor {
     this.department = { ...this.department };
   }
 
-  private save() {
-    updateDepartment(this.department);
-    this.editorClosed.emit('store');
+  private async save() {
+    try {
+      const updated = await updateDepartment(this.department, this.apiBase);
+      if (!updated) {
+        this.errorMessage = `Oddelenie s ID ${this.entryId} nebolo nájdené`;
+        return;
+      }
+      this.editorClosed.emit('store');
+    } catch {
+      this.errorMessage = 'Nepodarilo sa ulozit oddelenie';
+    }
   }
 
   private getStatusIcon(status: string): string {
@@ -101,12 +113,7 @@ export class DavgusDepartmentEditor {
                 </md-icon>
               </div>
 
-              <md-filled-text-field
-                label="Kapacita"
-                type="number"
-                value={room.capacity.toString()}
-                oninput={(ev: InputEvent) => this.handleRoomCapacity(room, ev)}
-              >
+              <md-filled-text-field label="Kapacita" type="number" value={room.capacity.toString()} oninput={(ev: InputEvent) => this.handleRoomCapacity(room, ev)}>
                 <md-icon slot="leading-icon">bed</md-icon>
               </md-filled-text-field>
 

@@ -1,14 +1,6 @@
 import { Component, Host, Prop, State, h, EventEmitter, Event } from '@stencil/core';
 import { Patient, Department, Room, Placement } from '../../models';
-import {
-  getPlacement,
-  getPatients,
-  getDepartments,
-  getDepartment,
-  createPlacement,
-  updatePlacement,
-  deletePlacement,
-} from '../../utils/dummy-data';
+import { createPlacement, deletePlacement, getDepartment, getDepartments, getPatients, getPlacement, updatePlacement } from '../../api/ambulance-api';
 
 @Component({
   tag: 'davgus-placement-editor',
@@ -27,32 +19,38 @@ export class DavgusPlacementEditor {
   @State() availableRooms: Room[];
   @State() errorMessage: string;
 
-  componentWillLoad() {
-    this.patients = getPatients();
-    this.departments = getDepartments();
+  async componentWillLoad() {
+    try {
+      const [patients, departments] = await Promise.all([getPatients(this.apiBase), getDepartments(this.apiBase)]);
+      this.patients = patients;
+      this.departments = departments;
 
-    if (this.entryId === '@new') {
-      this.entry = {
-        id: '@new',
-        patientId: '',
-        patientName: '',
-        departmentId: '',
-        departmentName: '',
-        roomId: '',
-        roomNumber: '',
-        admissionDate: new Date().toISOString().split('T')[0],
-        notes: '',
-      };
-      this.availableRooms = [];
-    } else {
-      const placement = getPlacement(this.entryId);
+      if (this.entryId === '@new') {
+        this.entry = {
+          id: '@new',
+          patientId: '',
+          patientName: '',
+          departmentId: '',
+          departmentName: '',
+          roomId: '',
+          roomNumber: '',
+          admissionDate: new Date().toISOString().split('T')[0],
+          notes: '',
+        };
+        this.availableRooms = [];
+        return;
+      }
+
+      const placement = await getPlacement(this.entryId, this.apiBase);
       if (placement) {
         this.entry = { ...placement };
-        const dept = getDepartment(placement.departmentId);
+        const dept = await getDepartment(placement.departmentId, this.apiBase);
         this.availableRooms = dept?.rooms.filter(r => r.status === 'active') || [];
       } else {
         this.errorMessage = `Umiestnenie s ID ${this.entryId} nebolo nájdené`;
       }
+    } catch {
+      this.errorMessage = 'Nepodarilo sa nacitat umiestnenie';
     }
   }
 
@@ -81,21 +79,34 @@ export class DavgusPlacementEditor {
     }
   }
 
-  private save() {
+  private async save() {
     if (!this.entry.patientId || !this.entry.departmentId || !this.entry.roomId) {
       return;
     }
-    if (this.entry.id === '@new') {
-      createPlacement(this.entry);
-    } else {
-      updatePlacement(this.entry);
+
+    try {
+      if (this.entry.id === '@new') {
+        await createPlacement(this.entry, this.apiBase);
+      } else {
+        const updated = await updatePlacement(this.entry, this.apiBase);
+        if (!updated) {
+          this.errorMessage = `Umiestnenie s ID ${this.entry.id} nebolo nájdené`;
+          return;
+        }
+      }
+      this.editorClosed.emit('store');
+    } catch {
+      this.errorMessage = 'Nepodarilo sa ulozit umiestnenie';
     }
-    this.editorClosed.emit('store');
   }
 
-  private deleteEntry() {
-    deletePlacement(this.entry.id);
-    this.editorClosed.emit('delete');
+  private async deleteEntry() {
+    try {
+      await deletePlacement(this.entry.id, this.apiBase);
+      this.editorClosed.emit('delete');
+    } catch {
+      this.errorMessage = 'Nepodarilo sa zmazat umiestnenie';
+    }
   }
 
   render() {
@@ -126,11 +137,7 @@ export class DavgusPlacementEditor {
           </div>
 
           <form>
-            <md-filled-select
-              label="Pacient"
-              display-text={this.entry?.patientName}
-              oninput={(ev: InputEvent) => this.handlePatientChange(ev)}
-            >
+            <md-filled-select label="Pacient" display-text={this.entry?.patientName} oninput={(ev: InputEvent) => this.handlePatientChange(ev)}>
               <md-icon slot="leading-icon">person</md-icon>
               {this.patients.map(p => (
                 <md-select-option value={p.id} selected={p.id === this.entry?.patientId}>
@@ -139,11 +146,7 @@ export class DavgusPlacementEditor {
               ))}
             </md-filled-select>
 
-            <md-filled-select
-              label="Oddelenie"
-              display-text={this.entry?.departmentName}
-              oninput={(ev: InputEvent) => this.handleDepartmentChange(ev)}
-            >
+            <md-filled-select label="Oddelenie" display-text={this.entry?.departmentName} oninput={(ev: InputEvent) => this.handleDepartmentChange(ev)}>
               <md-icon slot="leading-icon">apartment</md-icon>
               {this.departments.map(d => (
                 <md-select-option value={d.id} selected={d.id === this.entry?.departmentId}>
@@ -152,11 +155,7 @@ export class DavgusPlacementEditor {
               ))}
             </md-filled-select>
 
-            <md-filled-select
-              label="Izba"
-              display-text={this.entry?.roomNumber ? `Izba ${this.entry.roomNumber}` : ''}
-              oninput={(ev: InputEvent) => this.handleRoomChange(ev)}
-            >
+            <md-filled-select label="Izba" display-text={this.entry?.roomNumber ? `Izba ${this.entry.roomNumber}` : ''} oninput={(ev: InputEvent) => this.handleRoomChange(ev)}>
               <md-icon slot="leading-icon">bed</md-icon>
               {this.availableRooms.map(r => (
                 <md-select-option value={r.id} selected={r.id === this.entry?.roomId}>
@@ -176,6 +175,8 @@ export class DavgusPlacementEditor {
             <input
               type="date"
               class="date-input"
+              title="Datum prijatia"
+              aria-label="Datum prijatia"
               value={this.entry?.admissionDate}
               onInput={(ev: Event) => {
                 if (this.entry) this.entry = { ...this.entry, admissionDate: (ev.target as HTMLInputElement).value };

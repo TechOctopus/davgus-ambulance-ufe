@@ -1,6 +1,6 @@
-import { Component, Event, Prop, EventEmitter, Host, h } from '@stencil/core';
-import { Department } from '../../models';
-import { getDepartments, getOccupiedBeds, getTotalBeds } from '../../utils/dummy-data';
+import { Component, Event, Prop, EventEmitter, Host, State, h } from '@stencil/core';
+import { Department, Placement } from '../../models';
+import { getDepartments, getPlacements } from '../../api/ambulance-api';
 
 @Component({
   tag: 'davgus-department-list',
@@ -11,10 +11,29 @@ export class DavgusDepartmentList {
   @Event({ eventName: 'department-clicked' }) departmentClicked: EventEmitter<string>;
   @Prop() apiBase: string;
 
-  departments: Department[];
+  @State() departments: Department[] = [];
+  @State() placements: Placement[] = [];
+  @State() errorMessage: string;
 
-  componentWillLoad() {
-    this.departments = getDepartments();
+  async componentWillLoad() {
+    try {
+      const [departments, placements] = await Promise.all([getDepartments(this.apiBase), getPlacements(this.apiBase)]);
+      this.departments = departments;
+      this.placements = placements;
+      this.errorMessage = undefined;
+    } catch {
+      this.departments = [];
+      this.placements = [];
+      this.errorMessage = 'Nepodarilo sa nacitat oddelenia';
+    }
+  }
+
+  private getOccupiedBeds(departmentId: string): number {
+    return this.placements.filter(p => p.departmentId === departmentId).length;
+  }
+
+  private getTotalBeds(department: Department): number {
+    return department.rooms.filter(r => r.status === 'active').reduce((sum, r) => sum + r.capacity, 0);
   }
 
   private getOccupancyColor(ratio: number): string {
@@ -37,10 +56,17 @@ export class DavgusDepartmentList {
           <span class="badge">{this.departments.length}</span>
         </div>
 
+        {this.errorMessage ? (
+          <div class="empty-state">
+            <md-icon class="empty-icon">error</md-icon>
+            <p>{this.errorMessage}</p>
+          </div>
+        ) : null}
+
         <div class="card-list">
           {this.departments.map(dept => {
-            const occupied = getOccupiedBeds(dept.id);
-            const total = getTotalBeds(dept);
+            const occupied = this.getOccupiedBeds(dept.id);
+            const total = this.getTotalBeds(dept);
             const ratio = total > 0 ? occupied / total : 0;
             const color = this.getOccupancyColor(ratio);
             const activeRooms = dept.rooms.filter(r => r.status === 'active').length;

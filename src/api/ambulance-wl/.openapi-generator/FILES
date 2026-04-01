@@ -1,0 +1,14 @@
+.openapi-generator-ignore
+apis/DepartmentsApi.ts
+apis/PatientsApi.ts
+apis/PlacementsApi.ts
+apis/index.ts
+index.ts
+models/Department.ts
+models/Patient.ts
+models/PatientCreateRequest.ts
+models/Placement.ts
+models/PlacementCreateRequest.ts
+models/Room.ts
+models/index.ts
+runtime.ts

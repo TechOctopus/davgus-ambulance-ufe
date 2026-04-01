@@ -1,6 +1,6 @@
-import { Component, Event, Prop, EventEmitter, Host, h } from '@stencil/core';
+import { Component, Event, Prop, EventEmitter, Host, State, h } from '@stencil/core';
 import { Placement } from '../../models';
-import { getPlacements } from '../../utils/dummy-data';
+import { getPlacements } from '../../api/ambulance-api';
 
 @Component({
   tag: 'davgus-placement-list',
@@ -11,10 +11,17 @@ export class DavgusPlacementList {
   @Event({ eventName: 'placement-clicked' }) placementClicked: EventEmitter<string>;
   @Prop() apiBase: string;
 
-  placements: Placement[];
+  @State() placements: Placement[] = [];
+  @State() errorMessage: string;
 
-  componentWillLoad() {
-    this.placements = getPlacements();
+  async componentWillLoad() {
+    try {
+      this.placements = await getPlacements(this.apiBase);
+      this.errorMessage = undefined;
+    } catch {
+      this.placements = [];
+      this.errorMessage = 'Nepodarilo sa nacitat umiestnenia';
+    }
   }
 
   private formatDate(dateStr: string): string {
@@ -31,12 +38,19 @@ export class DavgusPlacementList {
           <span class="badge">{this.placements.length}</span>
         </div>
 
-        {this.placements.length === 0 ? (
+        {this.errorMessage ? (
+          <div class="empty-state">
+            <md-icon class="empty-icon">error</md-icon>
+            <p>{this.errorMessage}</p>
+          </div>
+        ) : null}
+
+        {!this.errorMessage && this.placements.length === 0 ? (
           <div class="empty-state">
             <md-icon class="empty-icon">hotel</md-icon>
             <p>Žiadne umiestnenia</p>
           </div>
-        ) : (
+        ) : !this.errorMessage ? (
           <div class="card-list">
             {this.placements.map(pl => (
               <div class="placement-card" onClick={() => this.placementClicked.emit(pl.id)}>
@@ -58,7 +72,7 @@ export class DavgusPlacementList {
               </div>
             ))}
           </div>
-        )}
+        ) : null}
 
         <md-filled-icon-button class="fab" onclick={() => this.placementClicked.emit('@new')}>
           <md-icon>add</md-icon>

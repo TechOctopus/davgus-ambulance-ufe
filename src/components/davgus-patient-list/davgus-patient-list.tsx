@@ -1,6 +1,6 @@
 import { Component, Event, Prop, State, EventEmitter, Host, h } from '@stencil/core';
 import { Patient } from '../../models';
-import { getPatients } from '../../utils/dummy-data';
+import { getPatients } from '../../api/ambulance-api';
 
 @Component({
   tag: 'davgus-patient-list',
@@ -13,10 +13,17 @@ export class DavgusPatientList {
 
   @State() searchQuery: string = '';
 
-  patients: Patient[];
+  @State() patients: Patient[] = [];
+  @State() errorMessage: string;
 
-  componentWillLoad() {
-    this.patients = getPatients();
+  async componentWillLoad() {
+    try {
+      this.patients = await getPatients(this.apiBase);
+      this.errorMessage = undefined;
+    } catch {
+      this.patients = [];
+      this.errorMessage = 'Nepodarilo sa nacitat pacientov';
+    }
   }
 
   private getInitials(name: string): string {
@@ -56,12 +63,19 @@ export class DavgusPatientList {
           <md-icon slot="leading-icon">search</md-icon>
         </md-filled-text-field>
 
-        {filtered.length === 0 ? (
+        {this.errorMessage ? (
+          <div class="empty-state">
+            <md-icon class="empty-icon">error</md-icon>
+            <p>{this.errorMessage}</p>
+          </div>
+        ) : null}
+
+        {!this.errorMessage && filtered.length === 0 ? (
           <div class="empty-state">
             <md-icon class="empty-icon">person_off</md-icon>
             <p>Žiadni pacienti nenájdení</p>
           </div>
-        ) : (
+        ) : !this.errorMessage ? (
           <div class="card-list">
             {filtered.map(patient => (
               <div class="patient-card">
@@ -88,7 +102,7 @@ export class DavgusPatientList {
               </div>
             ))}
           </div>
-        )}
+        ) : null}
 
         <md-filled-icon-button class="fab" onclick={() => this.patientClicked.emit('@new')}>
           <md-icon>add</md-icon>
